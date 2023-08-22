@@ -1,2 +1,6 @@
 # python cache
 __pycache__/
+
+# pyinstaller buldle files
+build/
+*.spec
