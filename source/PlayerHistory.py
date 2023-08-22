@@ -65,10 +65,14 @@ class PlayerHistory:
         loses = values_li.count(0)
         return (wins, loses)
 
+LEADERBOARD_WIDTH = 700
+LEADERBOARD_HEIGHT = 400
+
+
 class LeaderboardUI(pygame.sprite.Sprite):
     def __init__(self, cx, cy, history: PlayerHistory):
         super().__init__()
-        self.image = pygame.Surface((500, 500))
+        self.image = pygame.Surface((LEADERBOARD_WIDTH, LEADERBOARD_HEIGHT))
         self.image.set_colorkey("black")
         self.rect = self.image.get_rect()
         self.rect.center = (cx, cy)
@@ -84,7 +88,7 @@ class LeaderboardUI(pygame.sprite.Sprite):
     def get_back_rect(self):
         w = self.__back_button.get_width()
         h = self.__back_button.get_height()
-        return pygame.Rect(self.rect.left+400, self.rect.top+20, w, h)
+        return pygame.Rect(self.rect.left+LEADERBOARD_WIDTH-100, self.rect.top+20, w, h)
     
     def update(self):
         if self.is_open:
@@ -95,9 +99,9 @@ class LeaderboardUI(pygame.sprite.Sprite):
             result_w = result.get_width()
             
             self.image.blit(self.__title_surf, (50, 50))
-            self.image.blit(self.__back_button, (400, 20))
-            pygame.draw.line(self.image, "purple", (50, 100), (450, 100), 3)
+            self.image.blit(self.__back_button, (LEADERBOARD_WIDTH-100, 20))
+            pygame.draw.line(self.image, "purple", (50, 100), (LEADERBOARD_WIDTH-50, 100), 3)
             self.image.blit(playername, (60, 120))
-            self.image.blit(result, (450-result_w, 120))
+            self.image.blit(result, (LEADERBOARD_WIDTH-50-result_w, 120))
         else:
             self.image.fill("black")
