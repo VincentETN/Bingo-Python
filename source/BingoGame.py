@@ -20,7 +20,7 @@ def main():
     # pygame setup
     pygame.init()
     pygame.display.set_caption('BINGO')
-    screen = pygame.display.set_mode((1280, 720))
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     clock = pygame.time.Clock()
     running = True
     main_font = pygame.font.Font(size=80)
@@ -36,16 +36,16 @@ def main():
     # grid.rand_numbers()
     all_sprites.add(grid)
 
-    play_button = PlayButton(1280/2-100, 720-150)
+    play_button = PlayButton(WINDOW_WIDTH/2-100, WINDOW_HEIGHT-150)
     all_sprites.add(play_button)
 
-    random_button = RandomButton(1280/2+100, 720-150)
+    random_button = RandomButton(WINDOW_WIDTH/2+100, WINDOW_HEIGHT-150)
     all_sprites.add(random_button)
 
-    restart_button = RestartButton(1280/2+300, WINDOW_HEIGHT/2)
+    restart_button = RestartButton(WINDOW_WIDTH/2+300, WINDOW_HEIGHT/2)
     all_sprites.add(restart_button)
 
-    leaderboard_button = LeaderboardButton(1280/2+300, WINDOW_HEIGHT/2-105)
+    leaderboard_button = LeaderboardButton(WINDOW_WIDTH/2+300, WINDOW_HEIGHT/2-105)
     all_sprites.add(leaderboard_button)
 
     leaderboard = LeaderboardUI(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, game_recorder)
@@ -139,11 +139,11 @@ def main():
             if grid.is_bingo():
                 win_surf = main_font.render('BINGO!', 1, 'yellow')
                 w = win_surf.get_width()
-                screen.blit(win_surf, (640 - w/2, 100))
+                screen.blit(win_surf, (WINDOW_WIDTH/2 - w/2, 100))
             elif grid.get_remain_chance() == 0:
                 fail_surf = main_font.render('FAIL', 1, "gray")
                 w = fail_surf.get_width()
-                screen.blit(fail_surf, (640 - w/2, 100))
+                screen.blit(fail_surf, (WINDOW_WIDTH/2 - w/2, 100))
             if round_count == game_recorder.get_index():
                 result = 1 if grid.is_bingo() else 0
                 numbers = grid.get_grid_numbers()
@@ -156,7 +156,7 @@ def main():
         grid.num_box_group.draw(screen)
         all_sprites.draw(screen)
         if hint_surf:
-            screen.blit(hint_surf, (10, 690))
+            screen.blit(hint_surf, (10, WINDOW_HEIGHT-30))
 
         # flip() the display to put your work on screen
         pygame.display.flip()
